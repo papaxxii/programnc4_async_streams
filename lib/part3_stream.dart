@@ -1,18 +1,28 @@
-// File: part3_stream.dart
-Stream<String> messageStream() async* {
-yield 'First message';
-await Future.delayed(Duration(seconds: 1));
-yield 'Second message';
-await Future.delayed(Duration(seconds: 1));
-yield 'Third message';
+// File: part3_stream_numbers.dart
+
+// Function 1: Stream that yields numbers
+Stream<int> numberStream() async* {
+  yield 1;
+  await Future.delayed(Duration(seconds: 1));
+  yield 2;
+  await Future.delayed(Duration(seconds: 1));
+  yield 3;
 }
 
-void listenToMessages() {
-messageStream().listen((msg) {
-print('New: $msg');
-});
+// Function 2: The only void function (acts like main)
+void showNumbers() {
+  numberStream().listen(
+    (num) {
+      print('New number: $num');
+    },
+    onError: (e) {
+      print('Error: $e');
+    },
+    onDone: () {
+      print('Stream finished.');
+    },
+  );
+
+  print('Listening to numbers...');
 }
-void main() {
-listenToMessages();
-print('Listening to messages...');
-}
+
