@@ -1,19 +1,23 @@
-// File: part2_future_error.dart
-Future<String> fetchData() {
-return Future.delayed(Duration(seconds: 2), () {
-throw Exception('Something went wrong!');
-});
-}
-void getSafeMessage() async {
-try {
-String message = await fetchData();
-print('Result: $message');
-} catch (e) {
-print('Caught an error: $e');
-}
+// File: part1_future.dart
+
+// Function 1: Returns the name after 2 seconds
+Future<String> getNameLater() {
+  return Future.delayed(Duration(seconds: 2), () {
+    // Simulate success (you can throw an error here to test)
+    return 'Your name is Alex!';
+    // throw Exception('Something went wrong while getting the name!');
+  });
 }
 
-void main() {
-getSafeMessage();
-print('Still running even if something goes wrong.');
+// Function 2: The only void function (acts like main)
+void showMessage() async {
+  print('Getting your name...');
+  try {
+    String message = await getNameLater();
+    print(message);
+  } catch (e) {
+    print('Error: $e');
+  }
+  print('This runs while waiting...');
 }
+
